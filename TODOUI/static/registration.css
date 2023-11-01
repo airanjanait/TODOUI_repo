@@ -1,0 +1,36 @@
+.nav1{
+    background-color: #545454;
+}
+.home{
+    margin-left: 20px;
+    margin-right: 40px;
+}
+.addtask{
+    margin-right: 40px;
+}
+.fetchtask{
+    margin-right: 40px;
+}
+
+.registration{
+    text-align: center;
+    font-family: Georgia, serif;
+    background-color: rgb(150, 174, 175);
+    font-size: 50px;
+}
+body{
+    background-color: #72afa47a;
+}
+.name{
+    font-size: 30px;
+    font-family: cursive;
+}
+.email{
+    font-size: 30px;
+    font-family: cursive;
+}
+.Password{
+    font-size: 30px;
+    font-family: cursive;
+}
+
