@@ -18,39 +18,48 @@ registered_users=[]
 class User(UserMixin):
     def __init__(self,id,Email,Password):
         self.id=id
+        # print(id,"-------------------------")
         self.Email=Email
+        # print(Email,"-------------------------")
         self.Password=Password
+        # print(Password,"-------------------------")
 
 @app.before_request
 def before_request():
     g.user=current_user
+    print(current_user,"---------------------")
 
 @login_manager.user_loader
 def load_user(user_id):
+    # print(user_id,"!!!!!!!!!!!!!!!!!!!!!!!!!")
     try:
         with app.app_context():
             user = obj.user_id(user_id)
-        if user:
-            return User((user.id,user.Email,user.Password))
+            print(user.Name,"==================")
+            print(user.id,"user-id****************************")
+            print(user.Email)
+        if user: 
+           return User((user.id,user.Email,user.Password))
     except:
-        redirect('/addtask')
+        pass
+        
     
 @app.route('/login',methods=['POST','GET'])
 def login():
-    try:
-        if request.method=='POST':
-            Email=request.form.get("Email")
-            Password=request.form.get("Password")
-            with app.app_context():
-                user=obj.user_login(Email,Password)
-            if user:
-                login_user(User(user.id,user.Email,user.Password))
-                return render_template('login_done.html')
-            else:
-                return "Invalid username/password"
-        return render_template('login.html')
-    except Exception as e:
-        print(e)
+    if request.method=='POST':
+        Email=request.form.get("Email")
+        print(Email)
+        Password=request.form.get("Password")
+        with app.app_context():
+            user=obj.user_login(Email,Password)
+        if user:
+            print(user.Email,"#######################################")
+            login_user(User(user.id,user.Email,user.Password))
+            return render_template('login_done.html')
+        else:
+            return "Invalid username/password"
+    return render_template('login.html')
+   
         
 @app.route('/logout')
 def logout():
@@ -58,6 +67,7 @@ def logout():
     return redirect('/login')
         
 @app.route('/hello')
+@login_required
 def hello():
     return 'hello.html'
 
